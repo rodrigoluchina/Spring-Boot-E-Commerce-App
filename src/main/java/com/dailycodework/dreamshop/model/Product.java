@@ -1,18 +1,32 @@
 package com.dailycodework.dreamshop.model;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+
 public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String brand;
     private String description;
     private BigDecimal price;
     private int inventory;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "category_id")
     private Category category;
     //@OneToMany
     //A anotação @OneToMany indica que uma entidade (no caso, Product) pode estar associada a várias outras entidades (no caso, Image). Ou seja, um produto pode ter várias imagens associadas a ele.
